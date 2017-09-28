@@ -1,0 +1,5 @@
+<resources>
+    <string name="app_name">Baking App</string>
+    <string name="noData">There is no data to show</string>
+    <string name="IngredientsTitle">Ingredients: \n</string>
+</resources>
