@@ -18,7 +18,8 @@ import java.util.ArrayList;
 
 import static com.example.android.bakingapp.R.id.recyclerView;
 
-public class MainActivity extends AppCompatActivity implements LoaderCallbacks<ArrayList<RecipeObject>>, customAdapter.ListItemClickListener {
+public class MainActivity extends AppCompatActivity implements LoaderCallbacks<ArrayList<RecipeObject>>,
+        customAdapter.ListItemClickListener {
     private static final int LOADER_ID = 1004;
     private RecyclerView mRecipeListRecyclerView;
     private ProgressBar mProgressLoader;
@@ -29,7 +30,6 @@ public class MainActivity extends AppCompatActivity implements LoaderCallbacks<A
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        //mTextv = (TextView) findViewById(R.id.textView1);
         mRecipeListRecyclerView = (RecyclerView) findViewById(recyclerView);
         mProgressLoader = (ProgressBar) findViewById(R.id.loading_spinner);
         mErrorTextView = (TextView) findViewById(R.id.noData);
@@ -85,10 +85,10 @@ public class MainActivity extends AppCompatActivity implements LoaderCallbacks<A
     public void onLoaderReset(Loader<ArrayList<RecipeObject>> loader) {
 
     }
-
     @Override
     public void onListItemClick(int clickedItemIndex) {
-        Intent intent = new Intent(MainActivity.this, RecipeDetailsActivity.class);
+       // Intent intent = new Intent(MainActivity.this, RecipeDetailsActivity.class);
+        Intent intent = new Intent(MainActivity.this, RecipeActivity.class);
         intent.putExtra(CLICKED_ITEM_INDEX_KEY, clickedItemIndex);
         startActivity(intent);
     }

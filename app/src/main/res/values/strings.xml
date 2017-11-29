@@ -2,4 +2,8 @@
     <string name="app_name">Baking App</string>
     <string name="noData">There is no data to show</string>
     <string name="IngredientsTitle">Ingredients: \n</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="prev_button"><![CDATA[<- Previous]]></string>
 </resources>
