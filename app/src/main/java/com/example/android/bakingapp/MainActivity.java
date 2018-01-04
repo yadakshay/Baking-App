@@ -6,7 +6,7 @@ import android.support.v4.app.LoaderManager.LoaderCallbacks;
 import android.support.v4.content.AsyncTaskLoader;
 import android.support.v4.content.Loader;
 import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.widget.ProgressBar;
@@ -16,23 +16,22 @@ import com.example.android.bakingapp.customObjects.RecipeObject;
 
 import java.util.ArrayList;
 
-import static com.example.android.bakingapp.R.id.recyclerView;
+import butterknife.BindView;
+import butterknife.ButterKnife;
 
 public class MainActivity extends AppCompatActivity implements LoaderCallbacks<ArrayList<RecipeObject>>,
         customAdapter.ListItemClickListener {
     private static final int LOADER_ID = 1004;
-    private RecyclerView mRecipeListRecyclerView;
-    private ProgressBar mProgressLoader;
-    private TextView mErrorTextView;
+    @BindView(R.id.recyclerView) RecyclerView mRecipeListRecyclerView;
+    @BindView(R.id.loading_spinner) ProgressBar mProgressLoader;
+    @BindView(R.id.noData) TextView mErrorTextView;
     public static ArrayList<RecipeObject> mRecipesList;
     public static String CLICKED_ITEM_INDEX_KEY = "itemNo";
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        mRecipeListRecyclerView = (RecyclerView) findViewById(recyclerView);
-        mProgressLoader = (ProgressBar) findViewById(R.id.loading_spinner);
-        mErrorTextView = (TextView) findViewById(R.id.noData);
+        ButterKnife.bind(this);
         LoaderCallbacks<ArrayList<RecipeObject>> callback = MainActivity.this;
         Bundle bundleForLoader = new Bundle();
         getSupportLoaderManager().initLoader(LOADER_ID, bundleForLoader, callback);
@@ -69,7 +68,7 @@ public class MainActivity extends AppCompatActivity implements LoaderCallbacks<A
         mProgressLoader.setVisibility(View.GONE);
         if (data != null) {
             if (data.size() != 0) {
-                LinearLayoutManager layoutManager = new LinearLayoutManager(this);
+                GridLayoutManager layoutManager = new GridLayoutManager(this, this.getResources().getInteger(R.integer.grid_columns));
                 mRecipeListRecyclerView.setLayoutManager(layoutManager);
                 mRecipeListRecyclerView.setHasFixedSize(true);
                 mRecipeListRecyclerView.setAdapter(new customAdapter(data, this));

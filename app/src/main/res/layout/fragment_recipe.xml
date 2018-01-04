@@ -14,7 +14,8 @@
             android:id="@+id/recipeIngredients"
             android:text="@string/IngredientsTitle"
             android:textSize="@dimen/small_text"
-            android:textColor="@color/dark"/>
+            android:textColor="@color/dark"
+            android:padding="@dimen/padding_small"/>
         <View
             android:layout_width="match_parent"
             android:layout_height="1dp"
