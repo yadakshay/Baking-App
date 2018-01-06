@@ -75,7 +75,7 @@ public class StepFragment extends Fragment {
         Button prevButton = (Button) rootView.findViewById(R.id.prevStepButton);
         TextView tv = (TextView) rootView.findViewById(R.id.longDescription);
         TextView sd = (TextView) rootView.findViewById(R.id.shortDescription);
-        ImageView stepThumbnail = (ImageView) rootView.findViewById(R.id.recipeImageHolder);
+        ImageView stepThumbnail = (ImageView) rootView.findViewById(R.id.stepThumbnailHolder);
         tv.setText(currentStep.getDescription());
         sd.setText(currentStep.getShortDescription());
         mPlayerView = (SimpleExoPlayerView) rootView.findViewById(R.id.video_view);
@@ -122,6 +122,12 @@ public class StepFragment extends Fragment {
     }
 
     @Override
+    public void onResume() {
+        super.onResume();
+        initializePlayer();
+    }
+
+    @Override
     public void onStop() {
         super.onStop();
         if (Util.SDK_INT > 23) {
@@ -157,4 +163,6 @@ public class StepFragment extends Fragment {
         return new ExtractorMediaSource(uri, new DefaultHttpDataSourceFactory("exoplayer-codelab"),
                 new DefaultExtractorsFactory(), null, null);
     }
+
+
 }
