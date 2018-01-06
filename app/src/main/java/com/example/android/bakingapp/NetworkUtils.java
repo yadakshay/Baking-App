@@ -81,6 +81,7 @@ public class NetworkUtils {
             for (int i = 0; i < recipeArray.length(); i++) {
                 JSONObject recipe = recipeArray.getJSONObject(i);
                 String name = recipe.getString("name");
+                String recipeImage = recipe.getString("image");
                 JSONArray ingredientsArray = recipe.getJSONArray("ingredients");
                 JSONArray stepsArray = recipe.getJSONArray("steps");
 
@@ -101,7 +102,7 @@ public class NetworkUtils {
                     String thumbNail = step.getString("thumbnailURL");
                     stepsList.add(new StepObject(shortDesc, desc, vdoUrl, thumbNail));
                 }
-                allRecipes.add(new RecipeObject(name, ingredientsList, stepsList));
+                allRecipes.add(new RecipeObject(name, recipeImage, ingredientsList, stepsList));
             }
         } catch (JSONException e) {
             e.printStackTrace();

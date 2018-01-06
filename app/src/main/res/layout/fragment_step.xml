@@ -8,34 +8,45 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical">
-    <com.google.android.exoplayer2.ui.SimpleExoPlayerView
-    android:id="@+id/video_view"
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content"/>
-    <TextView
+        <com.google.android.exoplayer2.ui.SimpleExoPlayerView
+        android:id="@+id/video_view"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:id="@+id/shortDescription" />
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:id="@+id/longDescription" />
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:layout_gravity="bottom">
-        <Button
-            android:layout_width="wrap_content"
+        android:layout_height="wrap_content"/>
+        <TextView
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="@string/prev_button"
-            android:id="@+id/prevStepButton"
-            android:gravity="left"/>
-        <Button
-            android:layout_width="wrap_content"
+            android:id="@+id/shortDescription" />
+        <LinearLayout
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Next ->"
-            android:id="@+id/nextStepButton"
-            android:gravity="right"/>
-    </LinearLayout>
+            android:orientation="horizontal">
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/stepThumbnailHolder"
+                android:layout_gravity="center_vertical"/>
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/longDescription"
+                android:layout_gravity="center_vertical"/>
+        </LinearLayout>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_gravity="bottom">
+            <Button
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/prev_button"
+                android:id="@+id/prevStepButton"
+                android:gravity="left"/>
+            <Button
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Next ->"
+                android:id="@+id/nextStepButton"
+                android:gravity="right"/>
+        </LinearLayout>
 </LinearLayout>

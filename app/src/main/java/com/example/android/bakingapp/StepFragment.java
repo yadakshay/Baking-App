@@ -9,6 +9,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.example.android.bakingapp.customObjects.StepObject;
@@ -22,6 +23,7 @@ import com.google.android.exoplayer2.trackselection.DefaultTrackSelector;
 import com.google.android.exoplayer2.ui.SimpleExoPlayerView;
 import com.google.android.exoplayer2.upstream.DefaultHttpDataSourceFactory;
 import com.google.android.exoplayer2.util.Util;
+import com.squareup.picasso.Picasso;
 
 import static com.example.android.bakingapp.RecipeActivity.NEXT_KEY;
 import static com.example.android.bakingapp.RecipeActivity.PREVIOUS_KEY;
@@ -34,7 +36,7 @@ public class StepFragment extends Fragment {
     private SimpleExoPlayer mPlayer;
     private StepObject currentStep;
     private SimpleExoPlayerView mPlayerView;
-    private String mStreamURL;
+    private String mStreamURL, mImageURL;
     private boolean playWhenReady = true;
     private int currentWindow;
     private long playbackPosition;
@@ -73,10 +75,23 @@ public class StepFragment extends Fragment {
         Button prevButton = (Button) rootView.findViewById(R.id.prevStepButton);
         TextView tv = (TextView) rootView.findViewById(R.id.longDescription);
         TextView sd = (TextView) rootView.findViewById(R.id.shortDescription);
+        ImageView stepThumbnail = (ImageView) rootView.findViewById(R.id.recipeImageHolder);
         tv.setText(currentStep.getDescription());
         sd.setText(currentStep.getShortDescription());
         mPlayerView = (SimpleExoPlayerView) rootView.findViewById(R.id.video_view);
         mStreamURL= currentStep.getVideoURL();
+        mImageURL= currentStep.getThumbnailURL();
+        if(mImageURL!=null){
+            if(!mImageURL.matches("")){
+                if(!mImageURL.substring(mImageURL.length() - 4).matches(".mp4")) {
+                    Picasso.with(getContext()).load(mImageURL).into(stepThumbnail);
+                }else{
+                    if(mStreamURL == null || mStreamURL.matches("")){
+                        mStreamURL = mImageURL;
+                    }
+                }
+            }
+        }
         nextButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

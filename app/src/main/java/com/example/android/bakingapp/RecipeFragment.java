@@ -27,6 +27,8 @@ public class RecipeFragment extends Fragment implements stepsListRecyclerAdapter
     // Define a new interface OnRecipeClickListener that triggers a callback in the host activity
     OnRecipeClickListener mCallback;
     RecyclerView stepsRecycle;
+    private static final String CLICKED_ITEM_KEY = "clickedItem";
+    private static final String BUNDLE_RECYCLER_LAYOUT = "classname.recycler.layout";
 
     @Override
     public void onStepListItemClick(int clickedItemIndex) {
@@ -62,21 +64,29 @@ public class RecipeFragment extends Fragment implements stepsListRecyclerAdapter
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
+        if (savedInstanceState != null) {
+            mClickedItemIndex = savedInstanceState.getInt(CLICKED_ITEM_KEY);
+        }
         // Inflate the layout for this fragment
         View rootView = inflater.inflate(R.layout.fragment_recipe, container, false);
-        //ListView stepsListView = (ListView) rootView.findViewById(R.id.stepsListView);
         mIngredientsList = mRecipesList.get(mClickedItemIndex).getIngredientList();
         mStepsList = mRecipesList.get(mClickedItemIndex).getStepsList();
         mIngredientsView = (TextView) rootView.findViewById(R.id.recipeIngredients);
         stepsRecycle = (RecyclerView) rootView.findViewById(R.id.stepsRecyclerView);
-        for (int i=0; i<mIngredientsList.size(); i++){
-            IngredientsObject iOb = mIngredientsList.get(i);
-            mIngredientsView.append(iOb.getIngredient() + "\t" + iOb.getQuantity()+ " " + iOb.getMeasure() + "\n");
-        }
         LinearLayoutManager layoutManager = new LinearLayoutManager(getContext());
         stepsListRecyclerAdapter adapter = new stepsListRecyclerAdapter(mStepsList, this);
         stepsRecycle.setLayoutManager(layoutManager);
         stepsRecycle.setAdapter(adapter);
+        if (savedInstanceState != null) {
+            stepsRecycle.getLayoutManager().onRestoreInstanceState(savedInstanceState);
+        }
+        //ListView stepsListView = (ListView) rootView.findViewById(R.id.stepsListView);
+
+        for (int i=0; i<mIngredientsList.size(); i++){
+            IngredientsObject iOb = mIngredientsList.get(i);
+            mIngredientsView.append(iOb.getIngredient() + "\t" + iOb.getQuantity()+ " " + iOb.getMeasure() + "\n");
+        }
+
        // ListAdapterForStepsList adapter = new ListAdapterForStepsList(getContext(), mStepsList);
        /* stepsListView.setAdapter(adapter);
         stepsListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
@@ -88,4 +98,10 @@ public class RecipeFragment extends Fragment implements stepsListRecyclerAdapter
         return rootView;
     }
 
+    @Override
+    public void onSaveInstanceState(Bundle outState) {
+        super.onSaveInstanceState(outState);
+        outState.putParcelable(BUNDLE_RECYCLER_LAYOUT, stepsRecycle.getLayoutManager().onSaveInstanceState());
+        outState.putInt(CLICKED_ITEM_KEY, mClickedItemIndex);
+    }
 }
