@@ -2,6 +2,10 @@ package com.example.android.bakingapp;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
+import android.support.annotation.VisibleForTesting;
+import android.support.test.espresso.IdlingResource;
 import android.support.v4.app.LoaderManager.LoaderCallbacks;
 import android.support.v4.content.AsyncTaskLoader;
 import android.support.v4.content.Loader;
@@ -16,6 +20,7 @@ import com.example.android.bakingapp.customObjects.RecipeObject;
 
 import java.util.ArrayList;
 
+import IdlingResources.SimpleIdlingResource;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
@@ -27,6 +32,8 @@ public class MainActivity extends AppCompatActivity implements LoaderCallbacks<A
     @BindView(R.id.noData) TextView mErrorTextView;
     public static ArrayList<RecipeObject> mRecipesList;
     public static String CLICKED_ITEM_INDEX_KEY = "itemNo";
+    @Nullable
+    private SimpleIdlingResource mIdlingResource;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -90,5 +97,17 @@ public class MainActivity extends AppCompatActivity implements LoaderCallbacks<A
         Intent intent = new Intent(MainActivity.this, RecipeActivity.class);
         intent.putExtra(CLICKED_ITEM_INDEX_KEY, clickedItemIndex);
         startActivity(intent);
+    }
+
+    /**
+     * Only called from test, creates and returns a new {@link SimpleIdlingResource}.
+     */
+    @VisibleForTesting
+    @NonNull
+    public IdlingResource getIdlingResource() {
+        if (mIdlingResource == null) {
+            mIdlingResource = new SimpleIdlingResource();
+        }
+        return mIdlingResource;
     }
 }
