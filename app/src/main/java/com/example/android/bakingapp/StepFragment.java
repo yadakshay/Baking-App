@@ -85,10 +85,6 @@ public class StepFragment extends Fragment {
             if(!mImageURL.matches("")){
                 if(!mImageURL.substring(mImageURL.length() - 4).matches(".mp4")) {
                     Picasso.with(getContext()).load(mImageURL).into(stepThumbnail);
-                }else{
-                    if(mStreamURL == null || mStreamURL.matches("")){
-                        mStreamURL = mImageURL;
-                    }
                 }
             }
         }
