@@ -101,7 +101,9 @@ public class RecipeActivity extends AppCompatActivity implements RecipeFragment.
                     .replace(stepFragmentHolderToUse, sf)
                     .commit();
         sf.setRetainInstance(true);
+        if(!isLargeScreen){
         currentFragment = STEP_FRAGMENT;
+    }
     }
 
     @Override
